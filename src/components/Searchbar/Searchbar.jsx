@@ -1,28 +1,57 @@
+import { Component } from 'react';
+import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
+
 import {
   Searchbox,
   SearchForm,
   SearchButton,
-  SearchLabel,
+  // SearchLabel,
   SearchInput,
 } from './Searchbar.styled';
 import { FaSearch } from 'react-icons/fa';
 
-export const Searchbar = ({ onSubmit }) => {
-  return (
-    <Searchbox>
-      <SearchForm>
-        <SearchButton type="submit">
-          <FaSearch size={20}></FaSearch>
-          <SearchLabel>Search</SearchLabel>
-        </SearchButton>
+export class Searchbar extends Component {
+  state = {
+    searchQuery: '',
+  };
 
-        <SearchInput
-          type="text"
-          autocomplete="off"
-          autoFocus
-          placeholder="Search images and photos"
-        />
-      </SearchForm>
-    </Searchbox>
-  );
+  handleNameChange = e => {
+    this.setState({ searchQuery: e.currentTarget.value });
+  };
+
+  handleSubmit = e => {
+    e.preventDefault();
+    if (this.state.searchQuery.trim() === '') {
+      return toast.warn('Please, enter search query');
+    }
+    this.props.onSubmit(this.state.searchQuery);
+    this.setState({ searchQuery: '' });
+  };
+
+  render() {
+    return (
+      <Searchbox>
+        <SearchForm onSubmit={this.handleSubmit}>
+          <SearchButton type="submit">
+            <FaSearch size={20}></FaSearch>
+            {/* <SearchLabel>Search</SearchLabel> */}
+          </SearchButton>
+
+          <SearchInput
+            type="text"
+            autocomplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+            value={this.state.searchQuery}
+            onChange={this.handleNameChange}
+          />
+        </SearchForm>
+      </Searchbox>
+    );
+  }
+}
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func,
 };
