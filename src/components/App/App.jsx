@@ -71,8 +71,10 @@ export class App extends Component {
   };
 
   toggleModal = largeImageURL => {
-    this.setState(({ showModal }) => ({ showModal: !showModal }));
-    this.setState({ selectedImage: largeImageURL });
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+      selectedImage: largeImageURL,
+    }));
   };
 
   render() {

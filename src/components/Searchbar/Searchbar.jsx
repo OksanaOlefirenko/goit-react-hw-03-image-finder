@@ -6,7 +6,6 @@ import {
   Searchbox,
   SearchForm,
   SearchButton,
-  // SearchLabel,
   SearchInput,
 } from './Searchbar.styled';
 import { FaSearch } from 'react-icons/fa';
@@ -16,7 +15,7 @@ export class Searchbar extends Component {
     searchQuery: '',
   };
 
-  handleNameChange = e => {
+  handleQueryChange = e => {
     this.setState({ searchQuery: e.currentTarget.value });
   };
 
@@ -35,7 +34,6 @@ export class Searchbar extends Component {
         <SearchForm onSubmit={this.handleSubmit}>
           <SearchButton type="submit">
             <FaSearch size={20}></FaSearch>
-            {/* <SearchLabel>Search</SearchLabel> */}
           </SearchButton>
 
           <SearchInput
@@ -44,7 +42,7 @@ export class Searchbar extends Component {
             autoFocus
             placeholder="Search images and photos"
             value={this.state.searchQuery}
-            onChange={this.handleNameChange}
+            onChange={this.handleQueryChange}
           />
         </SearchForm>
       </Searchbox>
